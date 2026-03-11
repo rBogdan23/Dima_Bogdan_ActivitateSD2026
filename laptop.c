@@ -29,13 +29,36 @@ void afisare(struct Laptop l) {
 			l.id,*(l.memorie), l.pret, l.serie);
 	}
 	else {
-		printf("Telefonul nu are memorie\n");
+		printf("Laptopul nu are memorie\n");
 	}
+}
+
+void modificaPret(struct Laptop* l, float noulPret)
+{
+	if (noulPret > 0) {
+	l->pret = noulPret;
+	}
+	else {
+		printf("Pretul nu poate fi negativ\n");
+	}
+}
+
+void dezalocare(struct Laptop* l) {
+	if (l->memorie != NULL) {
+		free(l->memorie);
+	}
+	l->memorie = NULL;
+
 }
 
 int main() {
 	struct Laptop l1;
 	l1 = initializare(1, 16, 200, 'A');
 	afisare(l1);
+	modificaPret(&l1, 250);
+	afisare(l1);
+	dezalocare(&l1);
+	afisare(l1);
+
 	return 0;
 }
