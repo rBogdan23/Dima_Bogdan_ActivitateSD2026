@@ -30,19 +30,30 @@ void afisare(struct Telefon t)
 {
 	
 	//afisare structura
-	printf("%d.Telefonul %s seria %c are %d gb RAM si costa %5.2f RON.\n",
-		t.id, t.producator, t.serie, t.RAM, t.pret);
+	if (t.producator != NULL) {
+		printf("%d.Telefonul %s seria %c are %d gb RAM si costa %5.2f RON.\n",
+			t.id, t.producator, t.serie, t.RAM, t.pret);
+	}
+	else {
+		printf("%d.Telefonul din seria %c are %d gb RAM si costa %5.2f RON.\n",
+			t.id,  t.serie, t.RAM, t.pret);
+	}
 }
 
-void modifica_Atribut(struct Telefon t) 
+void modificaPret(struct Telefon* t, float noulPret) 
 {
 //modificarea unui atribut
-
+	if (noulPret > 0) {
+	t->pret=noulPret;
+	}
+	
+	
 }
 
-void dezalocare ( struct Telefon t) 
+void dezalocare ( struct Telefon* t) 
 {
-
+	if (t->producator != NULL) 		free(t->producator);
+	t->producator = NULL; // pentru a nu a mai avea o adresa in el
 	//dezalocare structura
 }
 
@@ -50,6 +61,11 @@ int main() {
 	struct Telefon t;
 	t = initializare(1, 4, "Samsung", 3000.5, 'A');    // ghilimele folosesc doar pentru sir de caractere
 	afisare(t);
+	modificaPret(&t, 1000.5);
+	afisare(t);
+	dezalocare(&t);
+	afisare(t); 
+
 	return 0;
 
 }
